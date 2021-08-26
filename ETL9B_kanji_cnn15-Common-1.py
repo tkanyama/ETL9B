@@ -1,8 +1,15 @@
+import platform
+osname = platform.system()
 import numpy as np
 import cv2, pickle
 from sklearn.model_selection import train_test_split
-# import plaidml.keras
-# plaidml.keras.install_backend()
+if osname == "Darwin":
+    import plaidml.keras
+    plaidml.keras.install_backend()
+    home = '/Volumes/Disk1/kanyama/kerasData'
+elif osname == "Windows":
+    home = 'Y:/kanyama/kerasData'
+
 import keras
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
@@ -13,16 +20,22 @@ from keras.datasets import mnist
 import matplotlib.pyplot as plt
 from os.path import expanduser
 # home = expanduser("~")
-home = 'E:/DATA'
+# home = 'E:/DATA'
 import time
 t0 = time.time()
 
 # データファイルと画像サイズの指定
-data_file1 = home + "/ETL/ETL9B/ETL9B_32.pickle"
-jis_code_file1 = home + '/ETL/ETL9B/ETL9BJISCODE.picle'
-code_file = home + '/ETL/ETL9B/ETL9B_KANA_JIS_CODE.picle'
-data_file2 = home + "/ETL/ETL1/ETL1/katakana_32.pickle"
-jis_code_file2 = home + '/ETL/ETL1/ETL1/KANACODE.picle'
+# data_file1 = home + "/ETL/ETL9B/ETL9B_32.pickle"
+# jis_code_file1 = home + '/ETL/ETL9B/ETL9BJISCODE.picle'
+# code_file = home + '/ETL/ETL9B/ETL9B_KANA_JIS_CODE.picle'
+# data_file2 = home + "/ETL/ETL1/ETL1/katakana_32.pickle"
+# jis_code_file2 = home + '/ETL/ETL1/ETL1/KANACODE.picle'
+
+data_file1 = home + "/ETL9B_32.pickle"
+jis_code_file1 = home + '/ETL9BJISCODE.picle'
+code_file = home + '/ETL9B_KANA_JIS_CODE.picle'
+data_file2 = home + "/katakana_32.pickle"
+jis_code_file2 = home + '/KANACODE.picle'
 # im_size = 25
 # out_size = 46 # ア-ンまでの文字の数
 
@@ -146,7 +159,8 @@ hist = model.fit_generator(datagen.flow(x_train, y_train, batch_size=bsize), sam
 #           verbose=1,a
 #           validation_data=(x_test, y_test))
 # モデルを評価
-model.save(home + '/ETL/ETL9B/etl9b_model15-1_{}_{}_{}_022.h5'.format(im_size, bsize, epoch_n))
+# model.save(home + '/ETL/ETL9B/etl9b_model15-1_{}_{}_{}_022.h5'.format(im_size, bsize, epoch_n))
+model.save(home + '/Result/etl9b_model15-1_{}_{}_{}_Mac01.h5'.format(im_size, bsize, epoch_n))
 # model.save_weights(home + '/ETL/ETL9B/etl9b_{}_weight3_01.h5'.format(im_size))
 score = model.evaluate(x_test, y_test, verbose=1)
 print('正解率=', score[1], 'loss=', score[0])

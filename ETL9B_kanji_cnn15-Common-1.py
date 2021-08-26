@@ -25,12 +25,6 @@ import time
 t0 = time.time()
 
 # データファイルと画像サイズの指定
-# data_file1 = home + "/ETL/ETL9B/ETL9B_32.pickle"
-# jis_code_file1 = home + '/ETL/ETL9B/ETL9BJISCODE.picle'
-# code_file = home + '/ETL/ETL9B/ETL9B_KANA_JIS_CODE.picle'
-# data_file2 = home + "/ETL/ETL1/ETL1/katakana_32.pickle"
-# jis_code_file2 = home + '/ETL/ETL1/ETL1/KANACODE.picle'
-
 data_file1 = home + "/ETL9B_32.pickle"
 jis_code_file1 = home + '/ETL9BJISCODE.picle'
 code_file = home + '/ETL9B_KANA_JIS_CODE.picle'
@@ -97,27 +91,6 @@ datagen.fit(x_train)
 
 model = Sequential()
 
-# model.add(Conv2D(32, (3, 3), input_shape=input_shape))
-# model.add(Activation('relu'))
-# model.add(Conv2D(32, (3, 3)))
-# model.add(Activation('relu'))
-# model.add(MaxPooling2D(pool_size=(2, 2)))
-# model.add(Dropout(0.5))
-#
-# model.add(Conv2D(64, (3, 3)))
-# model.add(Activation('relu'))
-# model.add(Conv2D(64, (3, 3)))
-# model.add(Activation('relu'))
-# model.add(MaxPooling2D(pool_size=(2, 2)))
-# model.add(Dropout(0.5))
-#
-# model.add(Flatten())
-# model.add(Dense(256))
-# model.add(Activation('relu'))
-# model.add(Dropout(0.5))
-# model.add(Dense(nb_classes))
-# model.add(Activation('softmax'))
-
 
 model.add(Conv2D(32,
           kernel_size=(3, 3),
@@ -128,16 +101,10 @@ model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Conv2D(64, (3, 3), activation='relu'))
 model.add(Conv2D(64, (3, 3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
-# model.add(Conv2D(128, (3, 3), activation='relu'))
-# model.add(MaxPooling2D(pool_size=(2, 2)))
-# model.add(Conv2D(256, (3, 3), activation='relu'))
-# model.add(MaxPooling2D(pool_size=(2, 2)))
-# model.add(Dropout(0.5))
+
 model.add(Flatten())
 model.add(Dense(4096, activation='relu'))
 model.add(Dropout(0.5))
-# model.add(Dense(256, activation='relu'))
-# model.add(Dropout(0.5))
 model.add(Dense(out_size, activation='softmax'))
 
 model.summary()
